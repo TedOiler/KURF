@@ -12,6 +12,7 @@ Design of Experiments
 	- Judea Pearl and Dana Mackenzie. The book of why: the new science of cause and effect. Basic books, 2018.
 	- Ronald Aylmer Fisher. Design of experiments. British Medical Journal, 1(3923):554, 1936
 	- Ronald A Fisher. The arrangement of field experiments. In Breakthroughs in statistics, pages 82–91. Springer, 1992.
-
+	- Online Course: https://www.jmp.com/en_gb/online-statistics-course/design-of-experiments.html
+	
 Books
 	- Pattern Recognition and Machine Learning Christopher Bishop, 2006 Pattern Recognition and Machine Learning
