@@ -16,7 +16,7 @@ class BOTemperatureGP:
                  upper_bound,
                  lower_bound,
                  initial_method,
-                 initial_sample_size = 2,
+                 initial_sample_size = 8,
                  total_iter = 50, #number of total iterations
                  #fnum = 8, #number of features (Top K)
                 ):
