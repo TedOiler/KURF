@@ -13,6 +13,6 @@ class NonConvexFunction:
         """
         noise = np.random.normal(loc=0, scale=noise_scale)
 
-        func = -(X[0] ** 2 + X[1] ** 2) + 2 * np.cos(X[0]) * np.cos(X[1])
+        func = -(X[0] ** 2 + X[1] ** 2) + 20 * np.cos(X[0]) * np.cos(X[1])
 
         return func+noise

@@ -36,3 +36,8 @@ def get_random_X(low, high, samples):
     ALL = np.array(np.meshgrid(*[np.arange(low[k], high[k], 0.01) for k in range(len(low))])).T.reshape(-1,len(low))
     idx = random.sample(range(0, ALL.shape[0]-1), samples)
     return ALL[idx]
+
+def get_random_X_3dp(low, high, samples):
+  ALL = np.array(np.meshgrid(*[np.arange(low[k], high[k], 0.001) for k in range(len(low))])).T.reshape(-1, len(low))
+  idx = random.sample(range(0, ALL.shape[0] - 1), samples)
+  return ALL[idx]

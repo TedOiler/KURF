@@ -63,7 +63,7 @@ class BOTemperatureGP:
             training_samples.append(next_sample_to_be_evaluated)
             evaluation_scores.append(score)
             model = self.__train_gp_model(training_samples, evaluation_scores)
-            print(f'next sample to be evaluated: {next_sample_to_be_evaluated}, score: {score}')
+            # print(f'next sample to be evaluated: {next_sample_to_be_evaluated}, score: {score}')
 
         temp_score_mapping = {tuple(training_samples[index]): evaluation_scores[index] for index in
                                range(len(training_samples))}
