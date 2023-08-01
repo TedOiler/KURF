@@ -50,8 +50,8 @@ class BOTemperatureGP:
 
         while len(training_samples) < self.init_sample_size:
             init_sample = self.initial_method.generate_initial_samples()
-            if not np.isin(np.array(init_sample), np.array(training_samples)).all():
-                training_samples.append(init_sample)
+            if not list(init_sample) in list(training_samples):
+                training_samples.append(list(init_sample))
                 score = self.evaluation_component.get_evaluation_score(init_sample)
                 evaluation_scores.append(score)
 
@@ -63,7 +63,7 @@ class BOTemperatureGP:
             training_samples.append(next_sample_to_be_evaluated)
             evaluation_scores.append(score)
             model = self.__train_gp_model(training_samples, evaluation_scores)
-            # print(f'next sample to be evaluated: {next_sample_to_be_evaluated}, score: {score}')
+            #print(f'next sample to be evaluated: {next_sample_to_be_evaluated}, score: {score}')
 
         temp_score_mapping = {tuple(training_samples[index]): evaluation_scores[index] for index in
                                range(len(training_samples))}
