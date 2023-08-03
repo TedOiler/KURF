@@ -11,8 +11,11 @@ class NonConvexFunction:
         :param noise_scale: float the scale of noise we would like to have
         :return:
         """
+        if len(X) < 2:
+            raise ValueError("输入数组 'X' 必须至少包含两个元素。")
+
         noise = np.random.normal(loc=0, scale=noise_scale)
 
-        func = -(X[0] ** 2 + X[1] ** 2) + 2 * np.cos(X[0]) * np.cos(X[1])
+        func = -(X[0] ** 2 + X[1] ** 2) + 20 * np.cos(X[0]) * np.cos(X[1])
 
-        return func+noise
+        return func + noise
