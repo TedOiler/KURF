@@ -40,6 +40,17 @@ class BOTemperatureGP:
 
         return model
 
+    def __check_repetition(self, training_samples, init_sample):
+        """
+        check if a sample is already in the training sample list
+        :param training_samples: The training sample list
+        :param init_sample: the sample to be checked
+        :return: Boolean
+        """
+        if not list(init_sample) in list(training_samples):
+            return True
+        else:
+            return False
     def optimise(self):
         """
         Optimise the temperature to increase the yield and decrease the e-factor
@@ -50,10 +61,17 @@ class BOTemperatureGP:
 
         while len(training_samples) < self.init_sample_size:
             init_sample = self.initial_method.generate_initial_samples()
-            if not list(init_sample) in list(training_samples):
-                training_samples.append(list(init_sample))
-                score = self.evaluation_component.get_evaluation_score(init_sample)
-                evaluation_scores.append(score)
+
+            # The segment for appending the initial samples and sores without repetition check
+            training_samples.append(list(init_sample))
+            score = self.evaluation_component.get_evaluation_score(init_sample)
+            evaluation_scores.append(score)
+
+            # The segment for appending the initial samples and sores with repetition check
+            #if self.__check_repetition(training_samples, init_sample):
+                # training_samples.append(list(init_sample))
+                # score = self.evaluation_component.get_evaluation_score(init_sample)
+                # evaluation_scores.append(score)
 
         model = self.__train_gp_model(training_samples, evaluation_scores)
 
