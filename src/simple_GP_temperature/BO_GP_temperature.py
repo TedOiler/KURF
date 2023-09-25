@@ -3,7 +3,7 @@ import numpy as np
 
 from sklearn.gaussian_process import GaussianProcessRegressor
 from scipy.stats import norm
-from simple_GP_temperature.helper_sklearn import opt_acq
+from simple_GP_temperature.helper_sklearn import opt_acq, acq_ei
 import pandas as pd
 import pdb
 
@@ -13,9 +13,10 @@ class BOTemperatureGP:
     """
     def __init__(self,
                  evaluation_component,
-                 upper_bound,
-                 lower_bound,
+                 upper_bound, # for search space
+                 lower_bound, # for search space
                  initial_method,
+                 acq_function = acq_ei, # acquisition function
                  initial_sample_size = 8,
                  total_iter = 50, #number of total iterations
                  #fnum = 8, #number of features (Top K)
@@ -24,6 +25,7 @@ class BOTemperatureGP:
         self.initial_method = initial_method
         self.init_sample_size = initial_sample_size
         #self.fnum = fnum
+        self.acq_function = acq_function
         self.total_iter = total_iter
         self.lower_bound = lower_bound
         self.upper_bound = upper_bound
@@ -76,7 +78,7 @@ class BOTemperatureGP:
         model = self.__train_gp_model(training_samples, evaluation_scores)
 
         for i in range(self.total_iter):
-            next_sample_to_be_evaluated = opt_acq(X=np.array(training_samples), y=np.array(evaluation_scores), model=model, low=self.lower_bound, high=self.upper_bound)
+            next_sample_to_be_evaluated = opt_acq(X=np.array(training_samples), y=np.array(evaluation_scores), model=model, low=self.lower_bound, high=self.upper_bound, acq=acq_ei)
             score = self.evaluation_component.get_evaluation_score(next_sample_to_be_evaluated)
             training_samples.append(next_sample_to_be_evaluated)
             evaluation_scores.append(score)

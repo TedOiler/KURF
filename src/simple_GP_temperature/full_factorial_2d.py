@@ -23,7 +23,8 @@ class FullFacInit2D:
         Pop one of the initial sample from the pre-generated full-factorial list
         :return: list[x1, x2] A unidimensional list of 2D initial input
         """
-        assert len(self.full_fact_matrix)>0, 'The Generated full factorial samples must be larger or equal to the initial sample size'
+        if len(self.full_fact_matrix) <= 0:
+            self.full_fact_matrix = list(self.__generate_full_factorial_samples())
         returned_sample = self.full_fact_matrix.pop(0)
         return returned_sample
 

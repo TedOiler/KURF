@@ -26,6 +26,13 @@ def acq_ei(X, Xsamples, model):
   probs = std * (gamma * norm.cdf(gamma)) + norm.pdf(gamma)
   return probs
 
+def acq_ucb(X, Xsamples, model, beta=1.0):
+  mu, std = surrogate(model, Xsamples)
+  mu = mu[:, 0]
+  probs = mu + beta*(std + 1E-9)
+  return probs 
+
+  
 def opt_acq(X, y, model, low, high, acq=acq_ei):
   Xsamples = get_random_X(low=low, high=high, samples=1000) # can be improved upon
   scores = acq(X, Xsamples, model)
