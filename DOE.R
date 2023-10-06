@@ -64,3 +64,14 @@ dat_4[dat_4==-0.04]=(lowerbound+upperbound)/2-0.04*0.01*nlargest
 dat_4[dat_4==0.16]=(lowerbound+upperbound)/2+0.16*0.01*nlargest
 dat_4[dat_4==0.04]=(lowerbound+upperbound)/2+0.04*0.01*nlargest
 DoptimalIni_13<-dat_4
+
+#compute I-Optimal Design with 12 initial sample
+Fx <- Fx_cube(~x1 + x2 + I(x1^2) + I(x2^2) + I(x1*x2), n.levels=c(51, 51))
+keep <- rep(TRUE, nrow(Fx))
+  for(i in 1:nrow(Fx)) if(prod(abs(Fx[i, 2:3])) > 0.2) keep[i] <- FALSE
+Fx <- Fx[keep, ]
+w <-od_KL(Fx, 12, bin=TRUE, t.max=5, crit='I')$w.best\
+w <-od_plot(Fx = Fx, w = w, X = Fx[, 2:3], return.pools = TRUE)$Pool
+my_df <- data.frame(w)
+dat_2 <- subset(my_df, V3 != 0)
+dat_2 = dat_2*((upperbound-lowerbound)/2) + ((upperbound+lowerbound)/2)
