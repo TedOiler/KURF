@@ -6,7 +6,8 @@ class GeneralInitial2D:
 
 
     def generate_initial_samples(self): 
-        if self.input_matrix <= 0:
+        if len(self.input_matrix) <= 0:
             self.input_matrix = self.backup_matrix
+        print(self.backup_matrix)
         returned_sample = self.input_matrix.pop(0)
         return returned_sample
